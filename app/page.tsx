@@ -10,7 +10,7 @@ const [message, setMessage] = useState("Loading...");
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://52.90.192.255:3000/");
+        const response = await fetch("http://52.90.192.225:3000/");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
