@@ -1,6 +1,29 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
+
+const [message, setMessage] = useState("Loading...");
+  
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("http://52.90.192.255:3000/");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        setMessage(await response.text());
+      } catch (error) {
+        setMessage("An error occurred while fetching the data.");
+        console.error("An error occurred while fetching the data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -22,6 +45,7 @@ export default function Home() {
           </li>
           <li>Save and see your changes instantly.</li>
 	  <li>Uconnect</li>
+	  <li>Response from API: {message}</li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
